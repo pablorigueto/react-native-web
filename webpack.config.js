@@ -1,6 +1,6 @@
 // webpack.config.js
 const path = require('path');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 
 module.exports = {
   entry: './src/index.js', // Entry file of your React Native app
@@ -16,6 +16,11 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
+      },
+      {
+        test: /\.ttf$/, // Handle ttf files
+        loader: 'url-loader', // or use 'file-loader' if you prefer
+        include: path.resolve(__dirname, 'node_modules/react-native-vector-icons'),
       },
     ],
   },
