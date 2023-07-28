@@ -20,7 +20,10 @@ module.exports = {
       {
         test: /\.ttf$/, // Handle ttf files
         loader: 'url-loader', // or use 'file-loader' if you prefer
-        include: path.resolve(__dirname, 'node_modules/react-native-vector-icons'),
+        include: path.resolve(
+          __dirname,
+          'node_modules/react-native-vector-icons',
+        ),
       },
     ],
   },

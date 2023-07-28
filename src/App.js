@@ -12,10 +12,11 @@ import {
   Image,
   Dimensions,
   Animated,
-  TouchableOpacity,
   Platform,
 } from 'react-native';
-const {width, height} = Dimensions.get('window');
+//const {width, height} = Dimensions.get('window');
+const width = 400;
+const height = 800;
 import {getMovies} from './api';
 import Genres from './Genres';
 import Rating from './Rating';
@@ -25,7 +26,8 @@ import LinearGradient from 'react-native-web-linear-gradient';
 //import {LinearGradient} from 'react-native-linear-gradient';
 
 const SPACING = 10;
-const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
+//const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
+const ITEM_SIZE = width * 0.72;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 const BACKDROP_HEIGHT = height * 0.65;
 
@@ -89,6 +91,7 @@ const Backdrop = ({movies, scrollX}) => {
 export default function App() {
   const [movies, setMovies] = React.useState([]);
   const scrollX = React.useRef(new Animated.Value(0)).current;
+  console.log(scrollX);
   React.useEffect(() => {
     const fetchData = async () => {
       const movies = await getMovies();
@@ -150,11 +153,15 @@ export default function App() {
                   marginHorizontal: SPACING,
                   padding: SPACING * 2,
                   alignItems: 'center',
-                  transform: [{translateY}],
+                  // transform: [{translateY}],
                   backgroundColor: 'white',
                   borderRadius: 34,
                 }}>
-                <Image source={{uri: item.poster}} style={styles.posterImage} />
+                <Image
+                  source={{uri: item.poster}}
+                  style={styles.posterImage}
+                  resizeMode="cover"
+                />
                 <Text
                   style={{fontSize: 24, color: '#272727'}}
                   numberOfLines={1}>
@@ -178,12 +185,12 @@ export default function App() {
 
 const styles = StyleSheet.create({
   loadingContainer: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: 'white',
   },
   paragraph: {
@@ -195,7 +202,7 @@ const styles = StyleSheet.create({
   posterImage: {
     width: '100%',
     height: ITEM_SIZE * 1.2,
-    resizeMode: 'cover',
+    // resizeMode: 'cover',
     borderRadius: 24,
     margin: 0,
     marginBottom: 10,
